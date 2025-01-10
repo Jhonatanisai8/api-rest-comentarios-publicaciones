@@ -1,5 +1,6 @@
 package org.isai.api.comentario.services;
 
+import org.isai.api.comentario.exceptions.ResourceNotFoundException;
 import org.isai.api.comentario.models.Comentario;
 import org.isai.api.comentario.repositories.ComentarioRepository;
 import org.isai.api.comentario.repositories.PublicacionRepository;
@@ -12,13 +13,24 @@ import org.springframework.stereotype.*;
 public class ComentarioService {
 
     @Autowired
-    private ComentarioRepository repository;
+    private ComentarioRepository comentarioRepository;
 
     @Autowired
     private PublicacionRepository publicacionRepository;
 
     public Page<Comentario> obtenerComentarios(Long idPublicacion, Pageable pageable) {
-        return repository.findByPublicacion(idPublicacion, pageable);
+        return comentarioRepository.findByPublicacion(idPublicacion, pageable);
     }
-    
+
+    public Comentario guardarComentario(Comentario comentario) {
+        // buscamos la publicacion
+        return publicacionRepository
+                .findById(comentario.getPublicacion().getId())
+                .map(publicacion -> {
+                    comentario.setPublicacion(publicacion);
+                    return comentarioRepository.save(comentario);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Publicacion no encontrada con ID: " + comentario.getPublicacion().getId()));
+    }
 }
