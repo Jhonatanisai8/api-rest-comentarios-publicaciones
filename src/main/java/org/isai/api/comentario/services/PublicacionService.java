@@ -51,6 +51,10 @@ public class PublicacionService {
         if (request.getTitulo() != null || request.getTitulo().isBlank()) {
             publicacion.setTitulo(request.getTitulo());
         }
+
+        if (request.getContenido() != null || request.getContenido().isBlank()) {
+            publicacion.setContenido(request.getContenido());
+        }
         return publicacion;
     }
 
