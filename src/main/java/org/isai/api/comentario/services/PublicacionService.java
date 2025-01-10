@@ -18,9 +18,13 @@ public class PublicacionService {
         return repository.findAll(pageable);
     }
 
-    public Publicacion obtenerPublicacionPorId(Long id){
+    public Publicacion obtenerPublicacionPorId(Long id) {
         return repository
-        .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("No se encontro Publicacion con ID: "+id));
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontro Publicacion con ID: " + id));
+    }
+
+    public Publicacion guardarPublicacion(Publicacion publicacion) {
+        return repository.save(publicacion);
     }
 }
