@@ -22,15 +22,15 @@ public class ComentarioService {
         return comentarioRepository.findByPublicacion(idPublicacion, pageable);
     }
 
-    public Comentario guardarComentario(Comentario comentario) {
+    public Comentario guardarComentario(Comentario comentario, Long idPublicacion) {
         // buscamos la publicacion
         return publicacionRepository
-                .findById(comentario.getPublicacion().getId())
+                .findById(idPublicacion)
                 .map(publicacion -> {
                     comentario.setPublicacion(publicacion);
                     return comentarioRepository.save(comentario);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Publicacion no encontrada con ID: " + comentario.getPublicacion().getId()));
+                        "Publicacion no encontrada con ID: " + idPublicacion));
     }
 }
