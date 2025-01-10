@@ -33,4 +33,22 @@ public class ComentarioService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Publicacion no encontrada con ID: " + idPublicacion));
     }
+
+    public Comentario actualizarComentario(Comentario request, Long idPublicacion, Long idComentario) {
+        if (!publicacionRepository.existsById(idPublicacion)) {
+            throw new ResourceNotFoundException(
+                    "Publicacion no encontrada con ID: " + idPublicacion);
+        }
+
+        return comentarioRepository
+                .findById(idComentario)
+                .map(comentario -> {
+                    if (request.getTexto() != null) {
+                        comentario.setTexto(request.getTexto());
+                    }
+                    return comentarioRepository.save(comentario);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Comentario no encontrado con ID: " + idComentario));
+    }
+
 }
