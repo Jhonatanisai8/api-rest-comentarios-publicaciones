@@ -63,4 +63,9 @@ public class PublicacionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Publicacion no encontrada con ID: " + id));
     }
 
+    public Publicacion eliminarPublicacionID(Long id){
+        Publicacion publicacion = obtenerPublicacionPorId(id);
+        repository.delete(publicacion);
+        return publicacion;
+    }
 }
