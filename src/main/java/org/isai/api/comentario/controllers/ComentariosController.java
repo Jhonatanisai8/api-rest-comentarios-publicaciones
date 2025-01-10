@@ -1,10 +1,13 @@
 package org.isai.api.comentario.controllers;
 
+import org.isai.api.comentario.exceptions.ResourceNotFoundException;
 import org.isai.api.comentario.models.Comentario;
 import org.isai.api.comentario.services.ComentarioService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -29,6 +32,19 @@ public class ComentariosController {
     public Comentario modificarComentario(@PathVariable Long idPublicacion, @Valid @RequestBody Comentario comentario,
             Long idComentario) {
         return service.actualizarComentario(comentario, idPublicacion, idComentario);
+    }
+
+    @PutMapping("/publicaciones/{idPublicacion}/comentarios/{idComentario}")
+    public ResponseEntity<?> eliminarComentario(@PathVariable Long idComentario, @PathVariable Long idPublicacion) {
+        try {
+            return ResponseEntity
+                    .ok()
+                    .body(service.eliminarPublicacionID(idComentario, idPublicacion));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Error. " + e.getMessage());
+        }
     }
 
 }
