@@ -33,4 +33,25 @@ public class PublicacionService {
         repository.delete(publicacion);
         return publicacion;
     }
+
+    public Publicacion modificarPublicacionID(Long id, Publicacion request) {
+        Publicacion publicacion = obtenerPublicacionPorId(id);
+        if (request.getDescripcion() != null || request.getDescripcion().isBlank()) {
+            publicacion.setDescripcion(request.getDescripcion());
+        }
+
+        if (request.getFechaActualizacion() != null) {
+            publicacion.setFechaActualizacion(request.getFechaActualizacion());
+        }
+
+        if (request.getFechaCreacion() != null) {
+            publicacion.setFechaCreacion(request.getFechaCreacion());
+        }
+
+        if (request.getTitulo() != null || request.getTitulo().isBlank()) {
+            publicacion.setTitulo(request.getTitulo());
+        }
+        return publicacion;
+    }
+
 }
