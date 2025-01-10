@@ -1,5 +1,6 @@
 package org.isai.api.comentario.services;
 
+import org.isai.api.comentario.exceptions.ResourceNotFoundException;
 import org.isai.api.comentario.models.Publicacion;
 import org.isai.api.comentario.repositories.PublicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,27 +36,31 @@ public class PublicacionService {
     }
 
     public Publicacion modificarPublicacionID(Long id, Publicacion request) {
-        Publicacion publicacion = obtenerPublicacionPorId(id);
-        if (request.getDescripcion() != null || request.getDescripcion().isBlank()) {
-            publicacion.setDescripcion(request.getDescripcion());
-        }
+        return repository
+                .findById(id)
+                .map(publicacion -> {
+                    if (request.getDescripcion() != null || request.getDescripcion().isBlank()) {
+                        publicacion.setDescripcion(request.getDescripcion());
+                    }
 
-        if (request.getFechaActualizacion() != null) {
-            publicacion.setFechaActualizacion(request.getFechaActualizacion());
-        }
+                    if (request.getFechaActualizacion() != null) {
+                        publicacion.setFechaActualizacion(request.getFechaActualizacion());
+                    }
 
-        if (request.getFechaCreacion() != null) {
-            publicacion.setFechaCreacion(request.getFechaCreacion());
-        }
+                    if (request.getFechaCreacion() != null) {
+                        publicacion.setFechaCreacion(request.getFechaCreacion());
+                    }
 
-        if (request.getTitulo() != null || request.getTitulo().isBlank()) {
-            publicacion.setTitulo(request.getTitulo());
-        }
+                    if (request.getTitulo() != null || request.getTitulo().isBlank()) {
+                        publicacion.setTitulo(request.getTitulo());
+                    }
 
-        if (request.getContenido() != null || request.getContenido().isBlank()) {
-            publicacion.setContenido(request.getContenido());
-        }
-        return publicacion;
+                    if (request.getContenido() != null || request.getContenido().isBlank()) {
+                        publicacion.setContenido(request.getContenido());
+                    }
+                    return repository.save(publicacion);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Publicacion no encontrada con ID: " + id));
     }
 
 }
