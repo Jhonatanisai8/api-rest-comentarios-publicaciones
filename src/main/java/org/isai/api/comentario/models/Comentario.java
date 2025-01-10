@@ -3,6 +3,8 @@ package org.isai.api.comentario.models;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "comentarios")
 public class Comentario extends AuditModel {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +34,10 @@ public class Comentario extends AuditModel {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "publicacion_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE) // si se elimina una publicacion se borraran sus comentarios
+    @JsonIgnore
     private Publicacion publicacion;
 
-    public static long getSerialversionuid() {
+    public static Long getSerialversionuid() {
         return serialVersionUID;
     }
 
@@ -62,5 +65,4 @@ public class Comentario extends AuditModel {
         this.publicacion = publicacion;
     }
 
-    
 }

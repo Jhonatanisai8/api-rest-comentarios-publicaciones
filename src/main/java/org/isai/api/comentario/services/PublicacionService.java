@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class PublicacionService {
     @Autowired
@@ -22,7 +20,7 @@ public class PublicacionService {
     public Publicacion obtenerPublicacionPorId(Long id) {
         return repository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontro Publicacion con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro Publicacion con ID: " + id));
     }
 
     public Publicacion guardarPublicacion(Publicacion publicacion) {

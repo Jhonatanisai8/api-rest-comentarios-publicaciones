@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class Publicacion
         extends AuditModel {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class Publicacion
         this.contenido = contenido;
     }
 
-    public static long getSerialversionuid() {
+    public static Long getSerialversionuid() {
         return serialVersionUID;
     }
 
@@ -67,6 +67,8 @@ public class Publicacion
         return descripcion;
     }
 
+
     public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

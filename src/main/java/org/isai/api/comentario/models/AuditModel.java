@@ -21,7 +21,7 @@ import jakarta.persistence.TemporalType;
 @JsonIgnoreProperties(value = { "fechaCreacion", "fechaActualizacion" }, allowGetters = true)
 public abstract class AuditModel
         implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
@@ -33,7 +33,7 @@ public abstract class AuditModel
     @LastModifiedDate
     private Date fechaActualizacion;
 
-    public static long getSerialversionuid() {
+    public static Long getSerialversionuid() {
         return serialVersionUID;
     }
 

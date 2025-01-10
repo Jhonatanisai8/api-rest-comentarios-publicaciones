@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,7 @@ public class PublicacionController {
         return service.modificarPublicacionID(id, publicacion);
     }
 
+    @DeleteMapping("/publicaciones/{id}")
     public ResponseEntity<?> eliminarPublicacion(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.eliminarPublicacionPorId(id));
@@ -47,4 +49,17 @@ public class PublicacionController {
                     .body("Error: " + e.getMessage());
         }
     }
+
+    @GetMapping("/publicaciones/{id}")
+    public ResponseEntity<?> obtenerPublicacion(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.obtenerPublicacionPorId(id));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Error: " + e.getMessage());
+        }
+    }
+
 }
+

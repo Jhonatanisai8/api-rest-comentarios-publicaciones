@@ -30,7 +30,7 @@ public class ComentariosController {
 
     @PutMapping("/publicaciones/{idPublicacion}/comentarios/{idComentario}")
     public Comentario modificarComentario(@PathVariable Long idPublicacion, @Valid @RequestBody Comentario comentario,
-            Long idComentario) {
+            @PathVariable Long idComentario) {
         return service.actualizarComentario(comentario, idPublicacion, idComentario);
     }
 
