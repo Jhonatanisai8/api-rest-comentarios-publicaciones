@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "publicaciones")
 public class Publicacion
         extends AuditModel {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,7 +28,20 @@ public class Publicacion
 
     @NotNull
     @Lob
+    @Size(max = 250)
     private String descripcion;
+
+    @NotNull
+    @Lob
+    private String contenido;
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -54,8 +68,5 @@ public class Publicacion
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
-
-    
 }
