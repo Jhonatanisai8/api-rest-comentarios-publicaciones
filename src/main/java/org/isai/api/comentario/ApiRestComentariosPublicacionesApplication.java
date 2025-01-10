@@ -1,4 +1,4 @@
-package org.isai.api.comentario.publicaiones.api_rest_comentarios_publicaciones;
+package org.isai.api.comentario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

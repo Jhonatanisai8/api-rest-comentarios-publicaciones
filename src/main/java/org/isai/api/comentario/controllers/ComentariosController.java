@@ -34,7 +34,7 @@ public class ComentariosController {
         return service.actualizarComentario(comentario, idPublicacion, idComentario);
     }
 
-    @PutMapping("/publicaciones/{idPublicacion}/comentarios/{idComentario}")
+    @DeleteMapping("/publicaciones/{idPublicacion}/comentarios/{idComentario}")
     public ResponseEntity<?> eliminarComentario(@PathVariable Long idComentario, @PathVariable Long idPublicacion) {
         try {
             return ResponseEntity
