@@ -51,4 +51,13 @@ public class ComentarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Comentario no encontrado con ID: " + idComentario));
     }
 
+    public Comentario eliminarPublicacionID(Long id) {
+        return comentarioRepository
+                .findById(id)
+                .map(comentario -> {
+                    comentarioRepository.delete(comentario);
+                    return comentario;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Comentario no encontrado con ID: " + id));
+    }
 }
