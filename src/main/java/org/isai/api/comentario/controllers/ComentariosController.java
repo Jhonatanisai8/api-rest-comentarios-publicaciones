@@ -25,4 +25,10 @@ public class ComentariosController {
         return service.guardarComentario(comentario, idPublicacion);
     }
 
+    @PutMapping("/publicaciones/{idPublicacion}/comentarios/{idComentario}")
+    public Comentario modificarComentario(@PathVariable Long idPublicacion, @Valid @RequestBody Comentario comentario,
+            Long idComentario) {
+        return service.actualizarComentario(comentario, idPublicacion, idComentario);
+    }
+
 }
