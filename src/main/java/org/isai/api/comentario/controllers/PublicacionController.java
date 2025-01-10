@@ -1,10 +1,13 @@
 package org.isai.api.comentario.controllers;
 
+import org.isai.api.comentario.exceptions.ResourceNotFoundException;
 import org.isai.api.comentario.models.Publicacion;
 import org.isai.api.comentario.services.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,5 +36,15 @@ public class PublicacionController {
     @PutMapping("/publicaciones/{id}")
     public Publicacion modificarPublicacion(@PathVariable Long id, @Valid @RequestBody Publicacion publicacion) {
         return service.modificarPublicacionID(id, publicacion);
+    }
+
+    public ResponseEntity<?> eliminarPublicacion(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.eliminarPublicacionPorId(id));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Error: " + e.getMessage());
+        }
     }
 }
