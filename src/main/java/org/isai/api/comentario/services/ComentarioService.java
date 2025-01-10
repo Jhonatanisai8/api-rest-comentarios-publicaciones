@@ -19,7 +19,7 @@ public class ComentarioService {
     private PublicacionRepository publicacionRepository;
 
     public Page<Comentario> obtenerComentarios(Long idPublicacion, Pageable pageable) {
-        return comentarioRepository.findByPublicacion(idPublicacion, pageable);
+        return comentarioRepository.findByPublicacionId(idPublicacion, pageable);
     }
 
     public Comentario guardarComentario(Comentario comentario, Long idPublicacion) {
