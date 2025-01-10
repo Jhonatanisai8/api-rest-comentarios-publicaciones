@@ -27,4 +27,10 @@ public class PublicacionService {
     public Publicacion guardarPublicacion(Publicacion publicacion) {
         return repository.save(publicacion);
     }
+
+    public Publicacion eliminarPublicacionPorId(Long id) {
+        Publicacion publicacion = obtenerPublicacionPorId(id);
+        repository.delete(publicacion);
+        return publicacion;
+    }
 }
